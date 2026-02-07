@@ -35,11 +35,8 @@ const env = {
   // CORS
   CORS_ORIGIN: process.env.CORS_ORIGIN || 'http://localhost:5173',
 
-  // Email (SMTP) - Optional
-  SMTP_HOST: process.env.SMTP_HOST,
-  SMTP_PORT: parseInt(process.env.SMTP_PORT, 10) || 587,
-  SMTP_USER: process.env.SMTP_USER,
-  SMTP_PASS: process.env.SMTP_PASS,
+  // Email (Resend) - Optional
+  RESEND_API_KEY: process.env.RESEND_API_KEY,
   NOTIFICATION_EMAIL: process.env.NOTIFICATION_EMAIL,
 
   // Helper methods
