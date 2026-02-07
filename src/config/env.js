@@ -39,6 +39,10 @@ const env = {
   RESEND_API_KEY: process.env.RESEND_API_KEY,
   NOTIFICATION_EMAIL: process.env.NOTIFICATION_EMAIL,
 
+  // Authentication
+  JWT_SECRET: process.env.JWT_SECRET || 'your-super-secret-jwt-key-change-in-production',
+  JWT_EXPIRES_IN: process.env.JWT_EXPIRES_IN || '7d',
+
   // Helper methods
   isDevelopment() {
     return this.NODE_ENV === 'development';
