@@ -7,11 +7,15 @@
   "scripts": {
     "dev": "node --watch --env-file=.env.development src/server.js",
     "start": "node src/server.js",
-    "build": "npx prisma generate --schema=src/prisma/schema.prisma",
-    "prisma:generate": "npx prisma generate --schema=src/prisma/schema.prisma",
-    "prisma:push": "npx prisma db push --schema=src/prisma/schema.prisma",
-    "prisma:studio": "npx prisma studio --schema=src/prisma/schema.prisma",
-    "prisma:migrate": "npx prisma migrate dev --schema=src/prisma/schema.prisma"
+    "build": "npx prisma generate",
+    "postinstall": "npx prisma generate",
+    "prisma:generate": "npx prisma generate",
+    "prisma:push": "npx prisma db push",
+    "prisma:studio": "npx prisma studio",
+    "prisma:migrate": "npx prisma migrate dev"
+  },
+  "prisma": {
+    "schema": "src/prisma/schema.prisma"
   },
   "keywords": [
     "portfolio",
