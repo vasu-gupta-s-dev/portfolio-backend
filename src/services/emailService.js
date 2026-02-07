@@ -29,6 +29,13 @@ const createTransporter = () => {
         connectionTimeout: 10000,
         greetingTimeout: 10000,
         socketTimeout: 10000,
+        // Force IPv4 to avoid ENETUNREACH errors on cloud hosts
+        tls: {
+            rejectUnauthorized: false
+        },
+        dnsOptions: {
+            family: 4 // Force IPv4
+        }
     });
 };
 
