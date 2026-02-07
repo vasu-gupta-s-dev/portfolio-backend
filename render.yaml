@@ -1,0 +1,19 @@
+# Render Blueprint for Portfolio Backend
+
+services:
+  - type: web
+    name: portfolio-backend
+    runtime: node
+    region: singapore
+    plan: free
+    branch: main
+    buildCommand: npm install && npm run build
+    startCommand: npm start
+    healthCheckPath: /api/health
+    envVars:
+      - key: NODE_ENV
+        value: production
+      - key: DATABASE_URL
+        sync: false
+      - key: CORS_ORIGIN
+        sync: false

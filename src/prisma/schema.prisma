@@ -1,0 +1,43 @@
+// Prisma Schema for Portfolio Backend
+// Database: MySQL (TiDB Cloud in production)
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+/// Project model for portfolio projects
+model Project {
+  id          Int      @id @default(autoincrement())
+  title       String   @db.VarChar(255)
+  description String   @db.Text
+  techStack   String   @db.VarChar(500) // Comma-separated list of technologies
+  githubUrl   String?  @db.VarChar(500)
+  liveUrl     String?  @db.VarChar(500)
+  featured    Boolean  @default(false)
+  sortOrder   Int      @default(0)
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@index([featured])
+  @@index([sortOrder])
+  @@map("projects")
+}
+
+/// Contact message model for storing form submissions
+model ContactMessage {
+  id        Int      @id @default(autoincrement())
+  name      String   @db.VarChar(255)
+  email     String   @db.VarChar(255)
+  message   String   @db.Text
+  isRead    Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([isRead])
+  @@index([createdAt])
+  @@map("contact_messages")
+}
