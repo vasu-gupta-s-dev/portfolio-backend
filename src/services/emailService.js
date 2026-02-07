@@ -14,14 +14,21 @@ const createTransporter = () => {
         return null;
     }
 
+    // Use port 465 with SSL for better cloud hosting compatibility (Render, etc.)
+    const port = parseInt(env.SMTP_PORT, 10) || 465;
+
     return nodemailer.createTransport({
         host: env.SMTP_HOST,
-        port: env.SMTP_PORT || 587,
-        secure: env.SMTP_PORT === 465,
+        port: port,
+        secure: port === 465, // true for 465, false for 587
         auth: {
             user: env.SMTP_USER,
             pass: env.SMTP_PASS,
         },
+        // Connection settings for cloud environments
+        connectionTimeout: 10000,
+        greetingTimeout: 10000,
+        socketTimeout: 10000,
     });
 };
 
