@@ -4,6 +4,7 @@
  */
 
 import prisma from '../prisma/client.js';
+import { sendContactNotification } from './emailService.js';
 
 /**
  * Create a new contact message
@@ -26,6 +27,11 @@ export const createContactMessage = async ({ name, email, message }) => {
             email: true,
             createdAt: true
         }
+    });
+
+    // Send email notification (non-blocking)
+    sendContactNotification({ name, email, message }).catch(err => {
+        console.error('Failed to send email notification:', err.message);
     });
 
     return contactMessage;

@@ -11,8 +11,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 // Load environment-specific .env file
-const envFile = process.env.NODE_ENV === 'production' 
-  ? '.env.production' 
+const envFile = process.env.NODE_ENV === 'production'
+  ? '.env.production'
   : '.env.development';
 
 dotenv.config({ path: resolve(__dirname, '../../', envFile) });
@@ -28,18 +28,25 @@ const env = {
   // Server configuration
   NODE_ENV: process.env.NODE_ENV || 'development',
   PORT: parseInt(process.env.PORT, 10) || 3000,
-  
+
   // Database
   DATABASE_URL: process.env.DATABASE_URL,
-  
+
   // CORS
   CORS_ORIGIN: process.env.CORS_ORIGIN || 'http://localhost:5173',
-  
+
+  // Email (SMTP) - Optional
+  SMTP_HOST: process.env.SMTP_HOST,
+  SMTP_PORT: parseInt(process.env.SMTP_PORT, 10) || 587,
+  SMTP_USER: process.env.SMTP_USER,
+  SMTP_PASS: process.env.SMTP_PASS,
+  NOTIFICATION_EMAIL: process.env.NOTIFICATION_EMAIL,
+
   // Helper methods
   isDevelopment() {
     return this.NODE_ENV === 'development';
   },
-  
+
   isProduction() {
     return this.NODE_ENV === 'production';
   }
@@ -51,7 +58,7 @@ const env = {
 const validateEnv = () => {
   const required = ['DATABASE_URL'];
   const missing = required.filter(key => !env[key]);
-  
+
   if (missing.length > 0) {
     console.warn(`Warning: Missing environment variables: ${missing.join(', ')}`);
     console.warn('Some features may not work correctly.');
